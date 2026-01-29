@@ -7,7 +7,8 @@ import seaborn as sns
 # load data
 y_train = pd.read_csv('data/train_labels.csv')
 X_train = pd.read_csv('data/train_values.csv')
-X_test = pd.read_csv('data/test_values.csv')#data processing
+X_test = pd.read_csv('data/test_values.csv')
+#data processing
 #whatever we do on the training also do on the test set
 #1.drop secondery use columns
 # drop columns that include 'secondary_use' in their name
