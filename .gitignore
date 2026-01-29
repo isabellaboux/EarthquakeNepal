@@ -1,1 +1,3 @@
 .DS_Store
+pyproject.toml
+.venv

@@ -1,3 +1,0 @@
-uv.lock
-pyproject.toml
-.venv
