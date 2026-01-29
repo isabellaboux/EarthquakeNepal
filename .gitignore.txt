@@ -1,2 +1,4 @@
 uv.lock
 pyproject.toml
+.idea
+competition_challenge.ipynb
