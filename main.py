@@ -22,3 +22,6 @@ X_train.head()
 # plot 
 X_test.hist()
 sns.heatmap(X_test.select_dtypes(include='number').corr())
+
+print(X_train.describe())
+print(X_train.columns)
