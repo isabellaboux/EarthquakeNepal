@@ -1,3 +1,4 @@
-uv.lock
-pyproject.toml
+.DS_Store
 .venv
+.vscode
+uv.lock
