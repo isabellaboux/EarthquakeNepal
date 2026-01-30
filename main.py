@@ -30,6 +30,7 @@ def processing_dataset(df, y, df_test):
 
 train_X_processed, test_X_processed = processing_dataset(train_X, encoded_train_y, test_X)
 test_predictions = train_cv_model(train_X_processed, encoded_train_y, test_X_processed)
+test_predictions = test_predictions + 1
 
 buildings_id = test_X["building_id"]
 my_results = pd.DataFrame({"building_id": buildings_id, "damage_grade":test_predictions })
