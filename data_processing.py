@@ -10,19 +10,29 @@ from sklearn.compose import ColumnTransformer
 def winsorize_dataframe(dataframe: pd.DataFrame, lower_quantile: float = 0.05, upper_quantile: float = 0.95) -> pd.DataFrame:
 
 	num_cols = [
+
 		col for col in dataframe.select_dtypes(include=[np.number]).columns
 		if dataframe[col].nunique() > 2
 	]
 
 	winsor_limits = {}
 
-	for col in num_cols:
-		p5 = dataframe[col].quantile(0.05)
-		p95 = dataframe[col].quantile(0.95)
+	description = dataframe.describe()
 
-		# sum(dataframe[col])
-		winsor_limits[col] = (p5, p95)
-		dataframe[col] = dataframe[col].clip(p5, p95)
+	for col in description.columns:
+
+		mean_ = description[col].iloc[1]
+		std_ = description[col].iloc[2]
+
+		if dataframe[col].max() > mean_ + 3*(std_):
+
+			p5 = dataframe[col].quantile(0.05)
+			dataframe[col] = dataframe[col].clip(lower=p5)
+
+		if dataframe[col].max() < mean_ - 3*(std_):
+
+			p95 = dataframe[col].quantile(0.95)
+			dataframe[col] = dataframe[col].clip(upper=p95)
 
 	return dataframe
 
@@ -66,7 +76,7 @@ def turn_geolevel_into_categorical(dataframe: pd.DataFrame) -> pd.DataFrame:
 
 
 def encode_features(dataframe: pd.DataFrame, y, dataframe_test) -> tuple[Any, Any]:
-	cols1 = ["geo_level_3_id"]
+	cols1 = ["geo_level_1_id", "geo_level_2_id", "geo_level_3_id"]
 	cols2 = ["land_surface_condition", "foundation_type", "roof_type", "ground_floor_type", "other_floor_type", "position"]
 
 	preprocessor = ColumnTransformer(transformers=[

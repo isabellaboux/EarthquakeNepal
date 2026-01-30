@@ -7,7 +7,13 @@ from sklearn.model_selection import cross_val_score, KFold
 def train_cv_model(X_train, y, X_test):
 
     # model: XGboost
-    model=XGBClassifier(max_depth=5)
+    model = XGBClassifier(
+        objective='multi:softprob',  # Multi-class with probabilities
+        num_class=3,  # 3 damage grades
+        eval_metric='mlogloss',  # Multi-class log loss
+        random_state=42
+    )
+
     model.fit(X_train, y)
 
     # Define CV strategy

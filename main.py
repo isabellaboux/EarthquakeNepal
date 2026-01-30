@@ -14,7 +14,7 @@ encoded_train_y = encode_labels(train_y["damage_grade"])
 
 def processing_dataset(df, y, df_test):
 
-    columns_to_drop = ["geo_level_1_id", "geo_level_2_id", "count_floors_pre_eq", "building_id", 'plan_configuration',
+    columns_to_drop = ["count_floors_pre_eq", "building_id", 'plan_configuration',
                        'legal_ownership_status', 'has_secondary_use',
                        'has_secondary_use_agriculture', 'has_secondary_use_hotel',
                        'has_secondary_use_rental', 'has_secondary_use_institution',

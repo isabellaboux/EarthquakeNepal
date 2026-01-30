@@ -4,8 +4,7 @@ import seaborn as sns
 from modelling import train_cv_model
 from sklearn.model_selection import train_test_split
 from data_processing import winsorize_dataframe, drop_columns, encode_labels, encode_features
-from sklearn.metrics import f1_score
-
+from sklearn.metrics import f1_score, accuracy_score
 
 train_X = pd.read_csv("/Users/carricarte/Documents/DSR/data_challenge/EarthquakeNepal/data/train_values.csv")
 train_y = pd.read_csv("/Users/carricarte/Documents/DSR/data_challenge/EarthquakeNepal/data/train_labels.csv")
@@ -20,7 +19,7 @@ encoded_train_y = encode_labels(train_y["damage_grade"])
 
 def processing_dataset(df, y, df_test):
 
-    columns_to_drop = ["geo_level_1_id", "geo_level_2_id", "count_floors_pre_eq", "building_id", 'plan_configuration',
+    columns_to_drop = ["count_floors_pre_eq", "building_id", 'plan_configuration',
                        'legal_ownership_status', 'has_secondary_use',
                        'has_secondary_use_agriculture', 'has_secondary_use_hotel',
                        'has_secondary_use_rental', 'has_secondary_use_institution',
@@ -39,5 +38,5 @@ test_predictions = train_cv_model(train_X_processed, encoded_train_y, test_X_pro
 
 test_predictions = test_predictions + 1
 
-F1_score = f1_score(y_val["damage_grade"].to_numpy(), test_predictions, average='micro')
+F1_score = f1_score(y_val["damage_grade"].to_numpy(), test_predictions, average="micro")
 print(F1_score)
